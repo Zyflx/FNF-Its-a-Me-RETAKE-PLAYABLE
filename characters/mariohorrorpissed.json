@@ -1,0 +1,63 @@
+{
+	"animations": [
+		{
+			"offsets": [0, 0],
+			"loop": true,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "MarioIdleMad"
+		},
+		{
+			"offsets": [64, -127],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "MarioDownMad"
+		},
+		{
+			"offsets": [389, -4],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "MarioLeftMad"
+		},
+		{
+			"offsets": [260, 270],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "MarioUpMad"
+		},
+		{
+			"offsets": [-142, -85],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "MarioRightMad"
+		},
+		{
+			"offsets": [103, 77],
+			"loop": false,
+			"fps": 22,
+			"anim": "laugh",
+			"indices": [],
+			"name": "MarioSmallLaugh"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/NEW_Mario_EXE_V2_Assets_Pissed",
+	"position": [-180, -99],
+	"healthicon": "marioex2",
+	"flip_x": false,
+	"healthbar_colors": [135, 13, 10],
+	"camera_position": [-320, -190],
+	"sing_duration": 8,
+	"scale": 1,
+	"_editor_isPlayer": false
+}
