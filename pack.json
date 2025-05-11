@@ -1,0 +1,8 @@
+{
+	"name": "Raul's It's a Me RETAKE",
+	"description": "Chart mod of Raul's retake of \"It's a Me\" from Mario's Madness.",
+	"restart": false,
+	"runsGlobally": false,
+	"color": [255, 255, 255],
+	"discordRPC": "863222024192262205"
+}
