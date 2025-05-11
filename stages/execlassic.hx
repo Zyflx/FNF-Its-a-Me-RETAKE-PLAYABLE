@@ -7,6 +7,13 @@ final dir: String = 'stage/';
 final stage: Array<BGSprite> = [];
 final authorGroup = [];
 
+var gameZoom: Float = 0.015;
+var hudZoom: Float = 0.03;
+var interval: Int = 0;
+
+var canShake: Bool = false;
+var shakeIntensity: Float = 3.5;
+
 var zoomTween: FlxTween;
 
 final outlineShader: FlxRuntimeShader = new FlxRuntimeShader(Paths.getTextFromFile('shaders/outline.frag'));
@@ -21,6 +28,9 @@ addBehindGF(floor);
 
 final fence: BGSprite = new BGSprite(dir + 'Arboles y sombra', -1000, -850);
 addBehindGF(fence);
+
+final bricks: BGSprite = new BGSprite(dir + 'CLadrillosPapus', -1000, -850);
+add(bricks);
 
 for(stageObject in [backCastle, floor, fence])
     stage.push(stageObject);
@@ -91,15 +101,7 @@ game.skipCountdown = true;
 game.cameraSpeed = 1.2;
 camHUD.alpha = game.camZoomingMult = 0.0;
 
-var gameZoom: Float = 0.015;
-var hudZoom: Float = 0.03;
-var interval: Int = 0;
-
-function onBeatHit():Void {
-    if(interval == 0) return;
-    if(curBeat % interval == 0)
-        game.triggerEvent('Add Camera Zoom', gameZoom + '', hudZoom + '');
-}
+game.addCharacterToList('mariohorrorpissed', 1);
 
 function onCreatePost():Void {
     gf.scrollFactor.set(1, 1);
@@ -110,6 +112,13 @@ function onUpdatePost(delta: Float):Void {
     final speed: Float = Math.exp(-delta * 9.0 * playbackRate);
     camGame.zoom = FlxMath.lerp(defaultCamZoom, camGame.zoom, speed);
     camHUD.zoom = FlxMath.lerp(1.0, camHUD.zoom, speed);
+    camHUD.setPosition(canShake ? FlxG.random.float(-shakeIntensity, shakeIntensity) : 0, canShake ? FlxG.random.float(-shakeIntensity, shakeIntensity) : 0);
+}
+
+function onBeatHit():Void {
+    if(interval == 0) return;
+    if(curBeat % interval == 0)
+        game.triggerEvent('Add Camera Zoom', gameZoom + '', hudZoom + '');
 }
 
 function onMoveCamera(t: String):Void {
@@ -182,7 +191,15 @@ function onEvent(name: String, v1: String, v2: String):Void {
         case 'Toggle Outline Section':
             final enabled: Bool = outlineShader.getBool('enabled');
             outlineShader.setBool('enabled', !enabled);
+            for(char in [dad, boyfriend]) {
+                if(char.shader == null)
+                    char.shader = outlineShader;
+            }
             // overlay.visible = !overlay.visible;
             for(stageObject in stage) stageObject.visible = !stageObject.visible;
+        case 'Toggle HUD Shake':
+            canShake = !canShake;
+        case 'HUD Fade':
+            FlxTween.tween(camHUD, {alpha: Std.parseFloat(v1)}, Std.parseFloat(v2) / playbackRate);
     }
 }
