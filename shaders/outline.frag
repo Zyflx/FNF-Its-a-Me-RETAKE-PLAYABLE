@@ -11,15 +11,10 @@ void main(void) {
         return;
     }
 
-    vec4 outline = vec4(outlineColor.rgb, 1.0);
-    vec4 replace = vec4(0.0, 0.0, 0.0, 1.0);
-    vec4 newColor;
+    vec4 replaceColor = vec4(0., 0., 0., 1.);
+    float dist = distance(color.rgb, replaceColor.rgb);
+    float alpha = smoothstep(0., .1, dist);
+    vec4 newColor = mix(vec4(outlineColor, 1.), replaceColor, alpha) * color.a;
 
-    if((color.r + color.g + color.b + color.a) == (replace.r + replace.g + replace.b + replace.a)) {
-        newColor = outline;
-    } else {
-        newColor = replace;
-    }
-
-    gl_FragColor = vec4(newColor.rgb, color.a);
+    gl_FragColor = newColor;
 }
